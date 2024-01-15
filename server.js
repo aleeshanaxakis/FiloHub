@@ -1,7 +1,9 @@
-const express = require('express');
+const express = require('express'); 
+const path = require('path');
 const mongoose = require('mongoose');
 const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./server/schemas'); // TO DO: define typeDefs and resolvers
+const { expressMiddleware } = require('@apollo/server/express4');
 const { authmiddleware } = require('./utils/auth'); 
 
 const app = express();
