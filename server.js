@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { ApolloServer } = require('apollo-server-express');
-const { typeDefs, resolvers } = require('./graphql'); // TO DO: define typeDefs and resolvers
+const { typeDefs, resolvers } = require('./server/schemas'); // TO DO: define typeDefs and resolvers
+const { authmiddleware } = require('./utils/auth'); 
 
 const app = express();
 const PORT = process.env.PORT || 3001;
