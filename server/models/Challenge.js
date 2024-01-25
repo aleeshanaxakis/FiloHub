@@ -2,12 +2,10 @@ const { Schema } = requre('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const challengeSchema = new Schema({
-    username: [
-{
-    type: String,
+    creator: {
+    type: String, 
     required: true,
-}
-  ],
+},
   createdAt: {
     type: Date,
     default: Date.now,
@@ -15,7 +13,7 @@ const challengeSchema = new Schema({
 },
 title: {
     type: String,
-    required: true
+    required: true,
 },
 challengeBody: {
     type: String,

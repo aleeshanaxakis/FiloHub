@@ -20,7 +20,12 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    challenges: [challengeSchema], 
+    challenges: [ 
+        {
+        type: Schema.Types.ObjectId,
+        ref: "Challenge",
+        }
+    ], 
 }
 {
     toJSON: {
