@@ -18,7 +18,7 @@ db.once('open', async () => {
         { username: creator },
         {
           $addToSet: {
-            chalenges: _id,
+            challenges: _id,
           },
         }
       );

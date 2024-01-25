@@ -23,19 +23,20 @@ const typeDefs = `
   type Query {
     users: [User]
     user(username: String!): User
-    challenges(creator: String): [Challenge]
-    challenges(challengeId: ID!): Challenge
+    challenge(creator: String): [Challenge]
+    challenge(challengeId: ID!): Challenge
     me: User
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addChallenge(thoughtText: String!): Thought
-    editChallenge(thoughtId: ID!, commentText: String!): Thought
-    joinChallenge(thoughtId: ID!): Thought
-    leaveChallenge(thoughtId: ID!, commentId: ID!): Thought
-    deleteChallenge
+    addChallenge(challengeId: ID!, title: String!, challengeBody: String!): Challenge
+    editChallenge(challengeId: ID!): Challenge
+    deleteChallenge(challengeId: ID!): Challenge
+    joinChallenge(challengeId: ID!): Challenge
+    leaveChallenge(challengeId: ID!): Challenge
+    
   }
 `;
 module.exports = typeDefs;

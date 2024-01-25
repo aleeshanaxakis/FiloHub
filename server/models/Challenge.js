@@ -2,10 +2,27 @@ const { Schema } = requre('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const challengeSchema = new Schema({
-    creator: {
+creator: {
     type: String, 
     required: true,
 },
+participants: [
+    {
+    name: {
+        type: String,
+        required: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
+      },
+}],
+createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
+  },
 title: {
     type: String,
     required: true,
