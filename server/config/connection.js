@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+// require('dotenv').config();
 
-let mongooseOptions = {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/filohubDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-};
-
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/filohubDB', mongooseOptions);
+  useFindAndModify: false,
+  useCreateIndex: true
+});
 
 const db = mongoose.connection;
 
