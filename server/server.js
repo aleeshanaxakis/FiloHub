@@ -19,7 +19,7 @@ const app = express();
 // app.use(express.urlencoded({ extended: true }));
 
 // Authentication middleware
-app.use(authMiddleware);
+// app.use(authMiddleware);
 
 // Initialize Apollo Server for GraphQL
 const apolloServer = new ApolloServer({
