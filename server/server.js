@@ -1,5 +1,5 @@
 const express = require('express'); 
-const cors = require('cors');
+// const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 const { expressMiddleware } = require('@apollo/server/express4');
 const mongoose = require('mongoose');
@@ -19,7 +19,7 @@ const app = express();
 // app.use(express.urlencoded({ extended: true }));
 
 // Authentication middleware
-// app.use(authMiddleware);
+app.use(authMiddleware);
 
 // Initialize Apollo Server for GraphQL
 const apolloServer = new ApolloServer({
@@ -30,15 +30,13 @@ const apolloServer = new ApolloServer({
 
 async function startServer() {
   await apolloServer.start();
-  app.use(express.json());
+  apolloServer.applyMiddleware({ app, path: '/graphql', context: authMiddleware });
+
+ app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use('/images', express.static(path.join(__dirname, '../client/images')));
 
-  app.use('/graphql', expressMiddleware(server, {
-    context: authMiddleware
-  }));
-
-  // Serve static files from the React app in production
+// Serve static files from the React app in production
   if (process.env.NODE_ENV === 'production') {
       app.use(express.static(path.join(__dirname, '../client/build')));
 
@@ -46,7 +44,7 @@ async function startServer() {
           res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
       });
   }
-
+ 
 // Start Express server
   db.once('open', () => {
     app.listen(PORT, () => {
