@@ -1,5 +1,9 @@
 const { User, Challenge } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
+const axios = require('axios'); 
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+// const stripe = require stripe
 
 const resolvers = {
     Query: {
@@ -9,16 +13,15 @@ const resolvers = {
       user: async (parent, { username }) => {
         return User.findOne({ username }).populate('challenges');
       },
-      thoughts: async (parent, { username }) => {
-        const params = username ? { username } : {};
-        return Challenge.find(params).sort({ createdAt: -1 });
+      challenges: async () => {
+        return Challenge.find();
       },
-      thought: async (parent, { thoughtId }) => {
-        return Thought.findOne({ _id: thoughtId });
+      challenge: async (parent, { challengeId }) => {
+        return Challenge.findByID(challengeId);
       },
       me: async (parent, args, context) => {
         if (context.user) {
-          return User.findOne({ _id: context.user._id }).populate('thoughts');
+          return User.findOne({ _id: context.user._id }).populate('challenges');
         }
         throw AuthenticationError;
       },
@@ -47,75 +50,51 @@ const resolvers = {
   
         return { token, user };
       },
-      addThought: async (parent, { thoughtText }, context) => {
+      addChallenge: async (parent, { title, challengeBody }, context) => {
         if (context.user) {
-          const thought = await Thought.create({
-            thoughtText,
-            thoughtAuthor: context.user.username,
+          const challenge = await Challenge.create({
+            creator: context.user.username,
+            title,
+            challengeBody,
           });
   
           await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $addToSet: { thoughts: thought._id } }
+            { $addToSet: { challenges: challenge._id } }
           );
   
-          return thought;
+          return challenge;
         }
         throw AuthenticationError;
         ('You need to be logged in!');
       },
-      addComment: async (parent, { thoughtId, commentText }, context) => {
-        if (context.user) {
-          return Thought.findOneAndUpdate(
-            { _id: thoughtId },
-            {
-              $addToSet: {
-                comments: { commentText, commentAuthor: context.user.username },
-              },
-            },
-            {
-              new: true,
-              runValidators: true,
-            }
-          );
-        }
-        throw AuthenticationError;
+      editChallenge: async (parent, { challengeId, title, challengeBody }, context) => {
+        // Implement logic to edit a challenge
       },
-      removeThought: async (parent, { thoughtId }, context) => {
+      deleteChallenge: async (parent, { challengeId }, context) => {
         if (context.user) {
-          const thought = await Thought.findOneAndDelete({
-            _id: thoughtId,
+          const challenge = await Challenge.findOneAndDelete({
+            _id: challengeId,
             thoughtAuthor: context.user.username,
           });
   
           await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { thoughts: thought._id } }
+            { $pull: { challenges: challenge._id } }
           );
   
-          return thought;
+          return challenge;
         }
         throw AuthenticationError;
       },
-      removeComment: async (parent, { thoughtId, commentId }, context) => {
-        if (context.user) {
-          return Thought.findOneAndUpdate(
-            { _id: thoughtId },
-            {
-              $pull: {
-                comments: {
-                  _id: commentId,
-                  commentAuthor: context.user.username,
-                },
-              },
+      joinChallenge: async (parent, { challengeId, userId }, context) => {
+        // Impleme3nt logic for joining a challenge
             },
-            { new: true }
-          );
-        }
-        throw AuthenticationError;
+      leaveChallenge: async (parent, { challengeId, userId }, context) => {
+        // Impleme3nt logic for joining a challenge
+        },
       },
     },
-  };
   
   module.exports = resolvers;
   

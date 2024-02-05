@@ -1,6 +1,7 @@
-const { Schema, model } = require('mongoose');
-
+const mongoose = require('mongoose');
 const Bcrypt = require('bcrypt');
+
+const { Schema, model } = require('mongoose');
 
 const challengeSchema = require('./Challenge');
 
