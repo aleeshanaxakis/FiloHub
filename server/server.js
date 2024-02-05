@@ -2,10 +2,12 @@ require('dotenv').config();
 const express = require('express'); 
 const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
-// const { expressMiddleware } = require('@apollo/server/express4');const mongoose = require('mongoose');
+const { expressMiddleware } = require('@apollo/server/express4');
+const mongoose = require('mongoose');
 const path = require('path');
-const { typeDefs, resolvers } = require('./server/schemas'); // TO DO: define typeDefs and resolvers
+const { typeDefs, resolvers } = require('./schemas'); // TO DO: define typeDefs and resolvers
 const { authmiddleware } = require('./utils/auth'); 
+const db = require('./config/connection');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 if (!process.env.JWT_SECRET || !process.env.MONGODB_URI) {
