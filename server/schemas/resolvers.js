@@ -96,5 +96,16 @@ const resolvers = {
       },
     },
   
+// This function is called after verifying the user's credentials
+function generateToken(user) {
+  const tokenPayload = {
+    id: user.id,
+    username: user.username,
+    role: user.role, // Include the user's role in the token payload
+  };
+
+  return jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '1h' });
+}
+
   module.exports = resolvers;
   
