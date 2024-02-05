@@ -69,13 +69,19 @@ const resolvers = {
         ('You need to be logged in!');
       },
       editChallenge: async (parent, { challengeId, title, challengeBody }, context) => {
-        // Implement logic to edit a challenge
+        if (context.user) {
+          const challenge = await Challenge.findOneAndUpdate({
+            _id: challengeId,
+            title,
+            challengeBody,
+          })
+        }
       },
       deleteChallenge: async (parent, { challengeId }, context) => {
         if (context.user) {
           const challenge = await Challenge.findOneAndDelete({
             _id: challengeId,
-            thoughtAuthor: context.user.username,
+            creator: context.user.username,
           });
   
           await User.findOneAndUpdate(
@@ -87,11 +93,35 @@ const resolvers = {
         }
         throw AuthenticationError;
       },
-      joinChallenge: async (parent, { challengeId, userId }, context) => {
-        // Impleme3nt logic for joining a challenge
+      joinChallenge: async (parent, { challengeId, name }, context) => {
+        if (context.user) {
+          const challenge = await Challenge.findOneAndUpdate(
+          {
+            _id: challengeId,
+          },
+          {
+           $push: { participants: name } 
+          },
+          {
+            new: true
+          }
+          )
+        }
             },
-      leaveChallenge: async (parent, { challengeId, userId }, context) => {
-        // Impleme3nt logic for joining a challenge
+      leaveChallenge: async (parent, { challengeId, name }, context) => {
+        if (context.user) {
+          const challenge = await Challenge.findOneAndUpdate(
+            {
+              _id: challengeId,
+            },
+            {
+              $pull: { participants: name }
+            },
+            {
+              new: true
+            }
+          )
+        }
         },
       },
     },
