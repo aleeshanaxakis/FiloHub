@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { AuthenticationError } = require('apollo-server-express');
 
-const secret = process.env.JWT_SECRET;
+const secret = process.env.JWT_SECRET || 'mysecret';
 const expiration = '2h';
 
 const authMiddleware = (req, res, next) => {

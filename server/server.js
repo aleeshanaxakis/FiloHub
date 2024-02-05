@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express'); 
 const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
@@ -10,21 +9,8 @@ const { authmiddleware } = require('./utils/auth');
 const db = require('./config/connection');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-if (!process.env.JWT_SECRET || !process.env.MONGODB_URI) {
-  console.error("Missing critical environment variables. Exiting...");
-  process.exit(1);
-}
-
 const app = express();
 app.use(cors());
-
-// Connect to MongoDB using Mongoose
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/filohubDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
 
 // Middleware to parse incoming JSON and URL-encoded requests
 app.use(express.json());

@@ -1,6 +1,5 @@
 const { User, Challenge } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
-const axios = require('axios'); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // const stripe = require stripe
