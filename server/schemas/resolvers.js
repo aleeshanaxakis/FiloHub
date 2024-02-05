@@ -124,7 +124,7 @@ const resolvers = {
         }
         },
       },
-    },
+    }
   
 // This function is called after verifying the user's credentials
 function generateToken(user) {

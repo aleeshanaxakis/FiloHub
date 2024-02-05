@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { Schema } = requre('mongoose');
+const { Schema } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const challengeSchema = new Schema({

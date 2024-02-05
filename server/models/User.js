@@ -27,7 +27,8 @@ const userSchema = new Schema({
         ref: "Challenge",
         }
     ], 
-}
+},
+
 {
     toJSON: {
         virtuals: true,
