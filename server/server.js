@@ -5,19 +5,21 @@ const { expressMiddleware } = require('@apollo/server/express4');
 const mongoose = require('mongoose');
 const path = require('path');
 const { typeDefs, resolvers } = require('./schemas'); 
-const { authmiddleware } = require('./utils/auth'); 
+const { authMiddleware } = require('./utils/auth'); 
 const db = require('./config/connection');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+const PORT = process.env.PORT || 3001;
+
 const app = express();
-app.use(cors());
+// app.use(cors());
 
 // Middleware to parse incoming JSON and URL-encoded requests
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 // Authentication middleware
-app.use(authMiddleware);
+// app.use(authMiddleware);
 
 // Initialize Apollo Server for GraphQL
 const apolloServer = new ApolloServer({
@@ -28,7 +30,13 @@ const apolloServer = new ApolloServer({
 
 async function startServer() {
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app, path: '/graphql' });
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use('/images', express.static(path.join(__dirname, '../client/images')));
+
+  app.use('/graphql', expressMiddleware(server, {
+    context: authMiddleware
+  }));
 
   // Serve static files from the React app in production
   if (process.env.NODE_ENV === 'production') {
@@ -40,9 +48,11 @@ async function startServer() {
   }
 
 // Start Express server
-  const PORT = process.env.PORT || 3001;
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  db.once('open', () => {
+    app.listen(PORT, () => {
+      console.log(`API server running on port ${PORT}!`);
+      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+    });
   });
 }
 

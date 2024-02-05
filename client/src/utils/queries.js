@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_CHALLENGES = gql`
+export const GET_CHALLENGES = gql`
   query getChallenges {
     challenges {
       _id
@@ -12,7 +12,7 @@ export const QUERY_CHALLENGES = gql`
   }
 `;
 
-export const QUERY_SINGLE_CHALLENGE = gql`
+export const GET_CHALLENGE = gql`
   query getSingleChallenge($challengeId: ID!) {
     challenge(challengeId: $challengeId) {
       _id

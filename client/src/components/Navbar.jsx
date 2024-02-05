@@ -2,6 +2,8 @@ import React from 'react';
 import { Box, Flex, Button, Spacer } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
+// Add a logo in Navbar 
+
 function NavBar() {
   return (
     <Flex bg="blue.500" p={4} color="white">
