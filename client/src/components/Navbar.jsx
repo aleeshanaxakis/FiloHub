@@ -7,17 +7,17 @@ import { Link } from 'react-router-dom';
 function NavBar() {
   return (
     <Flex bg="blue.500" p={4} color="white">
-      <Box>Movie Club</Box>
+      <Box>FiloHub</Box>
       <Spacer />
       <Box>
         <Button as={Link} to="/user-details" colorScheme="teal" variant="ghost" mr={3}>
-          User Details
+          Login
         </Button>
         <Button as={Link} to="/upcoming-movies" colorScheme="teal" variant="ghost" mr={3}>
-          Upcoming Movies
+          Sign Up
         </Button>
         <Button as={Link} to="/past-movies" colorScheme="teal" variant="ghost" mr={3}>
-          Past Movies
+          
         </Button>
         <Button as={Link} to="/subscribe" colorScheme="teal" variant="ghost">
           Subscribe

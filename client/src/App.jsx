@@ -8,11 +8,13 @@ import {
   } from "@apollo/client";
   import { setContext } from "@apollo/client/link/context";
 
-import NavBar from './components/NavBar/index';
+import NavBar from './components/Navbar';
 
 const httpLink = createHttpLink({
     uri: "/graphql",
   });
+
+console.log('Hello');
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
@@ -37,8 +39,10 @@ const authLink = setContext((_, { headers }) => {
     return (
         <ApolloProvider client={client}>
         <StoreProvider>
-          <NavBar />
+          <div>
+          <h1> Hello </h1>
           <Outlet />
+          </div>
         </StoreProvider>
       </ApolloProvider>
     );
