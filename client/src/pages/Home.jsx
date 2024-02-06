@@ -5,8 +5,8 @@ import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
 
 const Home = () => {
-    const {loading, data } = useQuery(GET_CHALLENGES);
-   const token = Auth.loggedIn() ? Auth.getToken() : null;
+    // const {loading, data } = useQuery(GET_CHALLENGES);
+   // const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     return (
         <main>

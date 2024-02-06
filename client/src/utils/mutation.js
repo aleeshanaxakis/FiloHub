@@ -27,80 +27,61 @@ mutation loginUser($email: String!, $password: String!) {
 `
 
 export const ADD_CHALLENGE = gql`
-  mutation addChallenge($challenge.title: String!, $challenge.creator: String!) {
-    addChallenge(thoughtText: $thoughtText, thoughtAuthor: $thoughtAuthor) {
+  mutation addChallenge($title: String!, $challengeBody: String!) {
+    addChallenge(title: $title, challengeBody: $challengeBody) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-      }
+      creator
+      title
+      challengeBody
+      createdAt 
     }
   }
 `;
 
 export const EDIT_CHALLENGE = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+  mutation editChallenge($challengeId: ID!, $title: String!, $challengeBody: String!) {
+    editChallenge(challengeId: $challengeId, title: $title, challengeBody: $challengeBody) {
       _id
-      thoughtText
-      thoughtAuthor
+      creator
+      title
+      challengeBody
       createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-      }
     }
   }
 `;
 
 export const DELETE_CHALLENGE = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+  mutation deleteChallenge($challengeId: ID!) {
+    deleteChallenge(challengeId: $challengeId) {
       _id
-      thoughtText
-      thoughtAuthor
+      creator
+      title
+      challengeBody
       createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-      }
     }
   }
 `;
 
 export const JOIN_CHALLENGE = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+  mutation joinChallenge($challengeId: ID!) {
+    joinChallenge(challengeId: $challengeId) {
       _id
-      thoughtText
-      thoughtAuthor
+      creator
+      title
+      challengeBody
       createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-      }
     }
   }
 `;
 
 export const LEAVE_CHALLENGE = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+  mutation leaveChallenge($challengeId: ID!) {
+    leaveChallenge(challengeId: $challengeId) {
       _id
-      thoughtText
-      thoughtAuthor
+      creator
+      title
+      challengeBody
       createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-      }
     }
   }
 `;
