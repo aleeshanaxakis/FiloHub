@@ -1,7 +1,17 @@
+import { Container, Header, Loader } from 'semantic-ui-react';
+
+import NavBar from '../components/Navbar';
+import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/SignupForm';
+
 const Home = () => {
-    console.log('Hi whas up');
+    const {loading, data } = useQuery(GET_CHALLENGES);
+   const token = Auth.loggedIn() ? Auth.getToken() : null;
+
     return (
-        <div> <h1> Hello </h1> </div>
+        <main>
+            <h1> Welcome, user! </h1>
+        </main>
     )
 }
 
