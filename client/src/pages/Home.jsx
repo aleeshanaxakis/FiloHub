@@ -1,18 +1,23 @@
-import { Container, Header, Loader } from 'semantic-ui-react';
-
+import React from 'react';
+import { Container, Header } from 'semantic-ui-react';
 import NavBar from '../components/Navbar';
-import LoginForm from '../components/LoginForm';
-import SignupForm from '../components/SignupForm';
+
+// import LoginForm from '../components/LoginForm';
+// import SignupForm from '../components/SignupForm';
 
 const Home = () => {
     // const {loading, data } = useQuery(GET_CHALLENGES);
    // const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     return (
-        <main>
-            <h1> Welcome, user! </h1>
-        </main>
-    )
+        <div style={{ backgroundColor: '#FFF6E5', minHeight: '100vh', padding: '20px' }}>
+            <Container>
+                <NavBar />
+                <Header as='h1' style={{ color: '#333', textAlign: 'center', marginTop: '20px' }}>Welcome, user!</Header>
+                {/* Your content goes here */}
+            </Container>
+        </div>
+    );
 }
 
 export default Home 
