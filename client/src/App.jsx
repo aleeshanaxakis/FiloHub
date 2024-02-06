@@ -38,12 +38,10 @@ const authLink = setContext((_, { headers }) => {
   function App() {
     return (
         <ApolloProvider client={client}>
-        <StoreProvider>
           <div>
           <h1> Hello </h1>
           <Outlet />
           </div>
-        </StoreProvider>
       </ApolloProvider>
     );
   }
